@@ -1,6 +1,20 @@
 const chatForm = document.getElementById('chat-form');
 const chatMessages = document.querySelector('.chat-messages');
+const usersList = document.getElementById('users');
+
+//Get username
+const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username');
+
 const socket = io();
+
+//Join chat
+socket.emit('joinChat', username);
+
+//Get users
+socket.on('usersList', (users) => {
+    renderUsersList(users);
+});
 
 //Message from server
 socket.on('message', message => {
@@ -30,9 +44,19 @@ chatForm.addEventListener('submit',(e) => {
 function outputMessage(message) {
     const div = document.createElement('div');
     div.classList.add('message');
-    div.innerHTML = `<p class="meta">Brad <span>9:12pm</span></p>
+    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
     <p class="text">
-     ${message}
+     ${message.text}
     </p>`;
     document.querySelector('.chat-messages').appendChild(div);
+}
+
+//Render user list
+function renderUsersList(users) {
+    usersList.innerHTML = '';
+    users.forEach(user => {
+        const list = document.createElement('li');
+        list.innerHTML = user.username;
+        usersList.appendChild(list);
+    });
 }
