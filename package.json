@@ -1,0 +1,29 @@
+{
+  "name": "sockechat",
+  "version": "1.0.0",
+  "description": "a basic room chatting web application based on Socket.io",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/racob/sockechat.git"
+  },
+  "author": "Mohamad Eibiel Sardjanto",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/racob/sockechat/issues"
+  },
+  "homepage": "https://github.com/racob/sockechat#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "moment": "^2.29.1",
+    "socket.io": "^3.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
