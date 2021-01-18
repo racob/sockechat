@@ -27,10 +27,12 @@ socket.on('message', message => {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 })
 
+//Wait for typing
 messageBox.addEventListener('keypress', function(){
     socket.emit('typing', username);
 });
 
+//shows someone is typing...
 socket.on('typing', (username) => {
     feedback.innerHTML = '<p><em>' + username + ' is typing a message...</em></p>';
 });
