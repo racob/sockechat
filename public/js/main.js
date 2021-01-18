@@ -1,6 +1,8 @@
 const chatForm = document.getElementById('chat-form');
-const chatMessages = document.querySelector('.chat-messages');
+const chatMessages = document.getElementById('chat-messages');
 const usersList = document.getElementById('users');
+const messageBox = document.getElementById('msg');
+const feedback = document.getElementById('feedback');
 
 //Get username
 const urlParams = new URLSearchParams(window.location.search);
@@ -25,6 +27,14 @@ socket.on('message', message => {
     chatMessages.scrollTop = chatMessages.scrollHeight;
 })
 
+messageBox.addEventListener('keypress', function(){
+    socket.emit('typing', username);
+});
+
+socket.on('typing', (username) => {
+    feedback.innerHTML = '<p><em>' + username + ' is typing a message...</em></p>';
+});
+
 // Message submit
 chatForm.addEventListener('submit',(e) => {
     e.preventDefault();
@@ -43,12 +53,21 @@ chatForm.addEventListener('submit',(e) => {
 //Output message to dom
 function outputMessage(message) {
     const div = document.createElement('div');
-    div.classList.add('message');
-    div.innerHTML = `<p class="meta">${message.username} <span>${message.time}</span></p>
-    <p class="text">
-     ${message.text}
-    </p>`;
-    document.querySelector('.chat-messages').appendChild(div);
+    const messageContainer = document.getElementById('chat-messages');
+    div.classList.add('px-4','mt-3','pb-0');
+    if(message.username != 'SockeBot'){
+        div.innerHTML = `<p class="text-success"><strong>${message.username}</strong> <span class="text-muted ml-1"><em>${message.time}</em></span></p>
+        <p class="mb-2 mt-n2 text-light">
+            ${message.text}
+        </p>`;
+    } else {
+        div.innerHTML = `<p class="text-primary"><strong>${message.username}</strong> <span class="text-muted ml-1"><em>${message.time}</em></span></p>
+        <p class="mb-2 mt-n2 text-muted">
+            ${message.text}
+        </p>`;
+    }
+    
+    messageContainer.appendChild(div);
 }
 
 //Render user list
@@ -56,7 +75,7 @@ function renderUsersList(users) {
     usersList.innerHTML = '';
     users.forEach(user => {
         const list = document.createElement('li');
-        list.innerHTML = user.username;
+        list.innerHTML = `<strong>${user.username}</strong>`;
         usersList.appendChild(list);
     });
 }

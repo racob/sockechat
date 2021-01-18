@@ -25,8 +25,15 @@ io.on('connection', socket => {
         //Broadcast when a user connects
         socket.broadcast.emit('message', formatMessage(botName, `${user.username} has joined the chat`));
         io.emit('usersList', getUsersList());
+
+        
     });
 
+    // Handle typing event
+    socket.on('typing', (username) => {
+        socket.broadcast.emit('typing', username);
+    });
+    
     //Runs when client disconnects
     socket.on('disconnect', () => {
         const user = userLeave(socket.id);

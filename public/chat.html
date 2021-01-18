@@ -3,44 +3,61 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
-  <link rel="stylesheet" href="css/style.css">
+  <link 
+            rel="stylesheet" 
+            href="./css/bootstrap.min.css" 
+  />
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk="
+    crossorigin="anonymous"
+  />
   <title>Sockechat</title>
 </head>
+
 <body>
-  <div class="chat-container">
-    <header class="chat-header">
-      <h1>Sockechat</h1>
-      <a href="index.html" class="btn">Leave Room</a>
-    </header>
-    <main class="chat-main">
-      <div class="chat-sidebar">
-        <h3><i class="fas fa-users"></i> Online Users</h3>
-        <ul id="users">
-            <!--user list container-->
-        </ul>
+  <div class="d-flex vh-100 flex-column justify-content-center px-5" style="overflow-y: hidden">
+    <div class="card h-75 mx-5">
+      <div class="card-header d-flex align-items-center">
+        <h1>Sockechat</h1>
+        <a href="index.html" class="btn ml-auto btn-outline-danger">Leave Room</a>
       </div>
-      <div class="chat-messages">
-        <!--message container-->
+      <div class="card-body d-flex p-0">
+        <div class="col-2 bg-dark pt-3 px-3">
+          <h5><i class="fas fa-users"></i> Online Users</h5>
+          <ul id="users" class="list-unstyled">
+              <!--user list container-->
+          </ul>
+          <label class="position-absolute" style="bottom: 2px" id="feedback"></label>
+        </div>
+        <div class="d-flex flex-column justify-content-end px-0 w-100 h-100 align-items-end">
+          <div class="w-100 h-100 d-flex flex-column justify-content-end" style="overflow-y: auto;" id="chat-messages">
+            <!--message container-->
+          </div>
+          <form class="form-group p-3 m-0 w-100" id="chat-form">
+              <div class="input-group">
+                <input
+                  id="msg"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Message"
+                  required
+                  autocomplete="off"
+                />
+                <div class="input-group-append">
+                  <button class="btn btn-success"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+              </div>
+          </form>
+        </div>
       </div>
-    </main>
-    <div class="chat-form-container">
-      <form id="chat-form">
-        <input
-          id="msg"
-          type="text"
-          placeholder="Enter Message"
-          required
-          autocomplete="off"
-        />
-        <button class="btn"><i class="fas fa-paper-plane"></i> Send</button>
-      </form>
     </div>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.6/qs.min.js"
-  integrity="sha512-3TmPrquYLaAsUmZKXRARTDC5siWhLAdBVqNo4dWpDABBtLU62AaoTaQJEvjxjExcZYurO6i1dnK85k8pPIBlRg=="
-  crossorigin="anonymous"></script>
+    integrity="sha512-3TmPrquYLaAsUmZKXRARTDC5siWhLAdBVqNo4dWpDABBtLU62AaoTaQJEvjxjExcZYurO6i1dnK85k8pPIBlRg=="
+    crossorigin="anonymous">
+  </script>
   <script src="/socket.io/socket.io.js"></script>
   <script src="js/main.js"></script>
 </body>
